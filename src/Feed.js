@@ -37,6 +37,15 @@ const Feed = (props) => {
       </li>);
     }
 
+    if (type === 'movies') {
+      return (<li key={item.id}>
+        <a href={`https://trakt.tv/movies/${item.movie.ids.slug}`}>
+          <h4>{item.movie.title}</h4>
+          <h5>{item.movie.year}</h5>
+        </a>
+      </li>);
+    }
+
     return null;
 
   };
