@@ -8,6 +8,8 @@ const App = () => {
       </header>
       <main>
         <Feed type="discogs" title="Check out the latest music I bought" />
+        <Feed type="episodes" title="The latest tv-shows I saw" />
+        <Feed type="movies" title="The latest movie I watched" />
       </main>
     </div>
   );
