@@ -28,26 +28,17 @@ const Feed = (props) => {
       </li>);
     }
 
-    if (type === 'episodes') {
+    if (type === 'episodes' || type === 'movies') {
       return (<li key={item.id}>
-        <a href={`https://trakt.tv/shows/${item.show.ids.slug}/seasons/${item.episode.season}/episodes/${item.episode.number}`}>
-          <h4>{item.episode.season}x{item.episode.number} - {item.episode.title}</h4>
-          <h5>{item.show.title}</h5>
-        </a>
-      </li>);
-    }
-
-    if (type === 'movies') {
-      return (<li key={item.id}>
-        <a href={`https://trakt.tv/movies/${item.movie.ids.slug}`}>
-          <h4>{item.movie.title}</h4>
-          <h5>{item.movie.year}</h5>
+        <a href={item.link}>
+        <img src={item.poster} alt={`${item.title} poster`} />
+          <h4>{item.title}</h4>
+          <h5>{item.subtitle}</h5>
         </a>
       </li>);
     }
 
     return null;
-
   };
 
   return (
