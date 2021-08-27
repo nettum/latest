@@ -70,7 +70,7 @@ const App = () => {
       </Header>
       <Main>
         <Feed type="discogs" title="Check out the latest <span>music</span> I bought" />
-        <Feed type="episodes" title="The latest <span>tv-shows</span> I bindged" />
+        <Feed type="episodes" title="The latest <span>tv-shows</span> I binged" />
         <Feed type="movies" title="The latest <span>movies</span> I watched" />
       </Main>
     </Wrapper>
