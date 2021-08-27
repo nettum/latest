@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const Feed = (props) => {
   const { type, title } = props;
@@ -17,39 +18,62 @@ const Feed = (props) => {
     fetchData(type);
   }, [type]);
 
+  const Section = styled.section`
+    margin: 2rem 0;
+  `;
+  const SectionHeader = styled.h3`
+    margin-bottom: 0.5rem;
+    span {
+      color: #e5383b;
+    }
+  `;
+  const SectionList = styled.ul`
+    display: grid;
+    grid-gap: 2rem 1rem;
+    @media(min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media(min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  `;
+  const SectionItem = styled.li`
+
+  `;
+
   const renderItem = (item) => {
     if (type === 'discogs') {
-      return (<li key={item.basic_information.id}>
+      return (<SectionItem key={item.basic_information.id}>
         <a href={`https://www.discogs.com/release/${item.basic_information.id}`}>
-          <img src={item.basic_information.thumb} alt={`${item.basic_information.title} album cover`} />
+          <img src={item.basic_information.cover_image} alt={`${item.basic_information.title} album cover`} />
           <h4>{item.basic_information.title}</h4>
           <h5>{item.basic_information.artists[0].name}</h5>
         </a>
-      </li>);
+      </SectionItem>);
     }
 
     if (type === 'episodes' || type === 'movies') {
-      return (<li key={item.id}>
+      return (<SectionItem key={item.id}>
         <a href={item.link}>
         <img src={item.poster} alt={`${item.title} poster`} />
           <h4>{item.title}</h4>
           <h5>{item.subtitle}</h5>
         </a>
-      </li>);
+      </SectionItem>);
     }
 
     return null;
   };
 
   return (
-    <section>
-      <h3>{title}</h3>
+    <Section>
+      <SectionHeader dangerouslySetInnerHTML={{__html: title}} />
       {items && items.length > 0 && (
-        <ul>
+        <SectionList>
           {items.map(item => renderItem(item))}
-        </ul>
+        </SectionList>
       )}
-    </section>
+    </Section>
   );
 };
 
