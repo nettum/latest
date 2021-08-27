@@ -23,7 +23,7 @@ const Feed = (props) => {
   `;
   const SectionHeader = styled.h3`
     margin-bottom: 0.5rem;
-    span {
+    a {
       color: #e5383b;
     }
   `;

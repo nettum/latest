@@ -69,9 +69,9 @@ const App = () => {
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>
-        <Feed type="discogs" title="Check out the latest <span>music</span> I bought" />
-        <Feed type="episodes" title="The latest <span>tv-shows</span> I binged" />
-        <Feed type="movies" title="The latest <span>movies</span> I watched" />
+        <Feed type="discogs" title="Check out the latest <a href='https://www.discogs.com/user/wwmd/collection?limit=250&sort=added&header=1&sort_order=desc' target='_blank'>music</a> I bought" />
+        <Feed type="episodes" title="The latest <a href='https://trakt.tv/users/internettum/history/episodes' target='_blank'>tv-shows</a> I binged" />
+        <Feed type="movies" title="The latest <a href='https://trakt.tv/users/internettum/history/movies' target='_blank'>movies</a> I watched" />
       </Main>
     </Wrapper>
   );
