@@ -1,77 +1,73 @@
 import Feed from './Feed';
 import styled, { createGlobalStyle } from 'styled-components';
 
-const App = () => {
+const GlobalStyles = createGlobalStyle`
+  body {
+    background-color: #161a1d;
+    color: #d3d3d3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+  html, body, h1, h2, h3, h4, h5, ul, ol, li, figure {
+    margin: 0;
+    padding: 0;
+  }
+  ul, ol {
+    list-style: none;
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+  a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+`;
 
-  const GlobalStyles = createGlobalStyle`
-    body {
-      background-color: #161a1d;
-      color: #d3d3d3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    }
-    html, body, h1, h2, h3, h4, h5, ul, ol, li, figure {
-      margin: 0;
-      padding: 0;
-    }
-    ul, ol {
-      list-style: none;
-    }
-    img {
-      width: 100%;
-      height: auto;
-    }
-    a, a:visited, a:hover, a:active {
-      color: inherit;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  `;
+const Wrapper = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+`;
 
-  const Wrapper = styled.div`
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 1rem;
-  `;
+const Header = styled.header``;
 
-  const Header = styled.header`
+const MainHeader = styled.h1`
+  font-size: 2em;
+  line-height: 1.5em;
+  @media(min-width: 768px) {
+    font-size: 4em;
+  }
+  span {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    color: #61a5c2;
+    &.alt-color {
+      color: #e5383b;
+    }
+  }
+`;
 
-  `;
-
-  const MainHeader = styled.h1`
+const SubHeader = styled.h2`
+  font-size: 1.5em;
+  @media(min-width: 768px) {
     font-size: 2em;
-    line-height: 1.5em;
-    @media(min-width: 768px) {
-      font-size: 4em;
-    }
-    span {
-      font-family: 'Pacifico', cursive;
-      font-weight: 400;
-      color: #61a5c2;
-      &.alt-color {
-        color: #e5383b;
-      }
-    }
-  `;
+  }
+`;
 
-  const SubHeader = styled.h2`
-    font-size: 1.5em;
-    @media(min-width: 768px) {
-      font-size: 2em;
-    }
-  `;
+const  Main = styled.main``;
 
-  const  Main = styled.main`
-  `;
+const Footer = styled.footer`
+  font-size: 0.7em;
+  text-align: center;
+`;
 
-  const Footer = styled.footer`
-    font-size: 0.7em;
-    text-align: center;
-  `;
-
+const App = () => {
   return (
     <Wrapper>
       <GlobalStyles />
