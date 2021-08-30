@@ -69,7 +69,7 @@ const App = () => {
     <Wrapper>
       <GlobalStyles />
       <Header>
-        <MainHeader><span>Hello</span>, my name is <span><a href="https://internettum.no" rel="noopener noreferrer">Marius</a></span></MainHeader>
+        <MainHeader><span>Hello</span>, my name is <span><a href="https://internettum.no" target="_blank" rel="noopener noreferrer">Marius</a></span></MainHeader>
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>
