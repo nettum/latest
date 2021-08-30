@@ -11,7 +11,7 @@ const App = () => {
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     }
-    html, body, h1, h2, h3, h4, h5, ul, ol, li {
+    html, body, h1, h2, h3, h4, h5, ul, ol, li, figure {
       margin: 0;
       padding: 0;
     }
