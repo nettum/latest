@@ -24,6 +24,8 @@ const Feed = (props) => {
   const SectionHeader = styled.h3`
     margin-bottom: 0.5rem;
     a {
+      font-family: 'Pacifico', cursive;
+      font-weight: 400;
       color: #e5383b;
     }
   `;
@@ -60,11 +62,18 @@ const Feed = (props) => {
       width: 100%;
       height: 100%;
       object-fit: cover;
-
+    }
+    div {
+      margin-top: 0.5rem;
     }
   `;
   const SectionItem = styled.li`
-
+    h4 {
+      color: #61a5c2;
+    }
+    h5 {
+      color: #e5383b;
+    }
   `;
 
   const renderItem = (item) => {
