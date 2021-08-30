@@ -53,6 +53,11 @@ module.exports = async (req, res) => {
     return res.status(400).json({error: 'Invalid type specified'});
   }
 
+  if (process.env.VERCEL_ENV === 'development') {
+    const json = require(`./../mockdata/${type}.json`);
+    return res.status(200).json(json);
+  }
+
   const response = await fetch(`https://api.trakt.tv/users/internettum/history/${type}/`, {
     headers: {
       'Content-Type': 'application/json',
