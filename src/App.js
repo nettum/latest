@@ -34,14 +34,11 @@ const App = () => {
   const Wrapper = styled.div`
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
   `;
 
   const Header = styled.header`
 
-  `;
-
-  const  Main = styled.main`
   `;
 
   const MainHeader = styled.h1`
@@ -67,6 +64,14 @@ const App = () => {
     }
   `;
 
+  const  Main = styled.main`
+  `;
+
+  const Footer = styled.footer`
+    font-size: 0.7em;
+    text-align: center;
+  `;
+
   return (
     <Wrapper>
       <GlobalStyles />
@@ -75,10 +80,14 @@ const App = () => {
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>
-        <Feed type="discogs" title="Check out the latest <a href='https://www.discogs.com/user/wwmd/collection?limit=250&sort=added&header=1&sort_order=desc' target='_blank'>music</a> I bought" />
-        <Feed type="episodes" title="The latest <a href='https://trakt.tv/users/internettum/history/episodes' target='_blank'>tv-shows</a> I binged" />
-        <Feed type="movies" title="The latest <a href='https://trakt.tv/users/internettum/history/movies' target='_blank'>movies</a> I watched" />
+        <Feed type="discogs" title="Check out the latest <a href='https://www.discogs.com/user/wwmd/collection?limit=250&sort=added&header=1&sort_order=desc' target='_blank' rel='noopener noreferrer'>music</a> I bought" />
+        <Feed type="episodes" title="The latest <a href='https://trakt.tv/users/internettum/history/episodes' target='_blank' rel='noopener noreferrer'>tv-shows</a> I binged" />
+        <Feed type="movies" title="The latest <a href='https://trakt.tv/users/internettum/history/movies' target='_blank' rel='noopener noreferrer'>movies</a> I watched" />
       </Main>
+      <Footer>
+        <p>All information is gathered through the following APIs:<br /> <a href="https://www.discogs.com/developers" target="_blank" rel="noopener noreferrer">Discogs</a>, <a href="https://trakt.docs.apiary.io/" target="_blank" rel="noopener noreferrer">Trakt</a>, <a href="https://developers.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a></p>
+        <p>Hosting by <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a></p>
+      </Footer>
     </Wrapper>
   );
 }
