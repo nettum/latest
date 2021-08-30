@@ -61,7 +61,7 @@ const App = () => {
   `;
 
   const SubHeader = styled.h2`
-  font-size: 1.5em;
+    font-size: 1.5em;
     @media(min-width: 768px) {
       font-size: 2em;
     }

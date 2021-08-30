@@ -22,6 +22,10 @@ const Feed = (props) => {
     margin: 2rem 0;
   `;
   const SectionHeader = styled.h3`
+  font-size: 1.2em;
+    @media(min-width: 768px) {
+      font-size: 1.5em;
+    }
     margin-bottom: 0.5rem;
     a {
       font-family: 'Pacifico', cursive;
