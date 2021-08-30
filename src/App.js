@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     height: auto;
   }
   a, a:visited, a:hover, a:active {
-    color: inherit;
+    color: #e5383b;
     text-decoration: none;
   }
   a:hover {
@@ -47,9 +47,6 @@ const MainHeader = styled.h1`
     font-family: 'Pacifico', cursive;
     font-weight: 400;
     color: #61a5c2;
-    &.alt-color {
-      color: #e5383b;
-    }
   }
 `;
 
@@ -72,7 +69,7 @@ const App = () => {
     <Wrapper>
       <GlobalStyles />
       <Header>
-        <MainHeader><span>Hello</span>, my name is <span className="alt-color">Marius</span></MainHeader>
+        <MainHeader><span>Hello</span>, my name is <span><a href="https://internettum.no" rel="noopener noreferrer">Marius</a></span></MainHeader>
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>

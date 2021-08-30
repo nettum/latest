@@ -14,7 +14,6 @@ const SectionHeader = styled.h3`
   a {
     font-family: 'Pacifico', cursive;
     font-weight: 400;
-    color: #e5383b;
   }
 `;
 
@@ -59,7 +58,7 @@ const SectionList = styled.ul`
 
 const SectionItem = styled.li`
   h4 {
-    color: #61a5c2;
+    color: #d3d3d3;
   }
   h5 {
     color: #e5383b;
