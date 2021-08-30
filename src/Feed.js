@@ -50,6 +50,11 @@ const SectionList = styled.ul`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: all 0.8s ease-out;
+    :hover {
+      transform: scale(1.1);
+      opacity: 0.75;
+    }
   }
   div {
     margin-top: 0.5rem;
