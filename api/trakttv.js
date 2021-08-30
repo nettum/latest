@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
   const json = await response.json();
   const returnedJson = await formatResponse(json.slice(0, 4), type);
 
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
+  res.setHeader('Cache-Control', 's-maxage=3600');
   return res.status(200).json(returnedJson);
 };
 
