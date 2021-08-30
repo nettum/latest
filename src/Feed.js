@@ -22,8 +22,14 @@ const Feed = (props) => {
     margin: 2rem 0;
   `;
   const SectionHeader = styled.h3`
+  font-size: 1.2em;
+    @media(min-width: 768px) {
+      font-size: 1.5em;
+    }
     margin-bottom: 0.5rem;
     a {
+      font-family: 'Pacifico', cursive;
+      font-weight: 400;
       color: #e5383b;
     }
   `;
@@ -36,18 +42,56 @@ const Feed = (props) => {
     @media(min-width: 1024px) {
       grid-template-columns: repeat(4, 1fr);
     }
+    figure {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+
+    }
+    figure.discogs {
+      padding-top: 100%;
+    }
+    figure.movies, figure.episodes {
+      padding-top: 150%;
+    }
+    img {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    div {
+      margin-top: 0.5rem;
+    }
   `;
   const SectionItem = styled.li`
-
+    h4 {
+      color: #61a5c2;
+    }
+    h5 {
+      color: #e5383b;
+    }
   `;
 
   const renderItem = (item) => {
     if (type === 'discogs') {
       return (<SectionItem key={item.basic_information.id}>
         <a href={`https://www.discogs.com/release/${item.basic_information.id}`}>
-          <img src={item.basic_information.cover_image} alt={`${item.basic_information.title} album cover`} />
-          <h4>{item.basic_information.title}</h4>
-          <h5>{item.basic_information.artists[0].name}</h5>
+          <figure className={type}>
+            <img src={item.basic_information.cover_image} alt={`${item.basic_information.title} album cover`} />
+          </figure>
+          <div>
+            <h4>{item.basic_information.title}</h4>
+            <h5>{item.basic_information.artists[0].name}</h5>
+          </div>
+
         </a>
       </SectionItem>);
     }
@@ -55,9 +99,14 @@ const Feed = (props) => {
     if (type === 'episodes' || type === 'movies') {
       return (<SectionItem key={item.id}>
         <a href={item.link}>
-        <img src={item.poster} alt={`${item.title} poster`} />
-          <h4>{item.title}</h4>
-          <h5>{item.subtitle}</h5>
+        <figure className={type}>
+            <img src={item.poster} alt={`${item.title} poster`} />
+          </figure>
+          <div>
+            <h4>{item.title}</h4>
+            <h5>{item.subtitle}</h5>
+          </div>
+
         </a>
       </SectionItem>);
     }

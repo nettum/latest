@@ -33,9 +33,11 @@ const formatResponse = async (items, type) => {
           poster = `https://image.tmdb.org/t/p/w500${tmdbJson.poster_path}`
         }
       }
+      const season = `${(item.episode.season.toString().length === 1 ? '0' : '')}${item.episode.season}`;
+      const epsiode = `${(item.episode.number.toString().length === 1 ? '0' : '')}${item.episode.number}`;
       formattedResponse.push({
         id: item.id,
-        title: `${item.episode.season}x${item.episode.number} - ${item.episode.title}`,
+        title: `${season}x${epsiode} - ${item.episode.title}`,
         subtitle: item.show.title,
         link: `https://trakt.tv/shows/${item.show.ids.slug}/seasons/${item.episode.season}/episodes/${item.episode.number}`,
         poster: poster
@@ -53,6 +55,11 @@ module.exports = async (req, res) => {
     return res.status(400).json({error: 'Invalid type specified'});
   }
 
+  if (process.env.VERCEL_ENV === 'development') {
+    const json = require(`./../mockdata/${type}.json`);
+    return res.status(200).json(json);
+  }
+
   const response = await fetch(`https://api.trakt.tv/users/internettum/history/${type}/`, {
     headers: {
       'Content-Type': 'application/json',
@@ -64,7 +71,7 @@ module.exports = async (req, res) => {
   const json = await response.json();
   const returnedJson = await formatResponse(json.slice(0, 4), type);
 
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
+  res.setHeader('Cache-Control', 's-maxage=3600');
   return res.status(200).json(returnedJson);
 };
 

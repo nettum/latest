@@ -11,7 +11,7 @@ const App = () => {
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     }
-    html, body, h1, h2, h3, h4, h5, ul, ol, li {
+    html, body, h1, h2, h3, h4, h5, ul, ol, li, figure {
       margin: 0;
       padding: 0;
     }
@@ -45,17 +45,23 @@ const App = () => {
   `;
 
   const MainHeader = styled.h1`
-  font-size: 2em;
-  @media(min-width: 768px) {
-    font-size: 4em;
-  }
+    font-size: 2em;
+    line-height: 1.5em;
+    @media(min-width: 768px) {
+      font-size: 4em;
+    }
     span {
+      font-family: 'Pacifico', cursive;
+      font-weight: 400;
       color: #61a5c2;
+      &.alt-color {
+        color: #e5383b;
+      }
     }
   `;
 
   const SubHeader = styled.h2`
-  font-size: 1.5em;
+    font-size: 1.5em;
     @media(min-width: 768px) {
       font-size: 2em;
     }
@@ -65,7 +71,7 @@ const App = () => {
     <Wrapper>
       <GlobalStyles />
       <Header>
-        <MainHeader>Hello, my name is <span>Marius</span></MainHeader>
+        <MainHeader><span>Hello</span>, my name is <span className="alt-color">Marius</span></MainHeader>
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>
