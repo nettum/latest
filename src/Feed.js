@@ -68,14 +68,42 @@ const SectionItem = styled.li`
   h5 {
     color: #e5383b;
   }
+  &.placeholder {
+    figure, h4, h5 {
+      animation-duration: 1.25s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeholderAnim;
+      animation-timing-function: linear;
+      position: relative;
+      background: linear-gradient(to right, #b2b2b2 10%, #d3d3d3 18%, #b2b2b2 33%);
+      background-size: 800px 100px;
+    }
+    h4 {
+      width: 200px;
+    }
+    h5 {
+      width: 125px;
+    }
+  }
+  @keyframes placeholderAnim {
+    0%{
+        background-position: -400px 0
+    }
+    100%{
+        background-position: 400px 0
+    }
+  }
 `;
 
 const Feed = (props) => {
   const { type, title } = props;
   const [ items, setItems ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
 
   useEffect(() => {
     const fetchData = async (type) => {
+      setLoading(true);
       let endpoint = `/api/${type}`;
       if (type === 'episodes' || type === 'movies') {
         endpoint = `/api/trakttv?type=${type}`;
@@ -83,6 +111,7 @@ const Feed = (props) => {
       const response = await fetch(endpoint);
       const json = await response.json();
       setItems(json);
+      setLoading(false);
     }
     fetchData(type);
   }, [type]);
@@ -113,7 +142,6 @@ const Feed = (props) => {
             <h4>{item.title}</h4>
             <h5>{item.subtitle}</h5>
           </div>
-
         </a>
       </SectionItem>);
     }
@@ -121,14 +149,26 @@ const Feed = (props) => {
     return null;
   };
 
+  const renderPlaceholders = () => {
+    const elements = ['', '', '', ''];
+    return elements.map((element, key) => {
+      return (<SectionItem key={`${type}${key}`} className="placeholder">
+        <figure className={type}></figure>
+        <div>
+          <h4>&nbsp;</h4>
+          <h5>&nbsp;</h5>
+        </div>
+      </SectionItem>);
+    })
+  };
+
   return (
     <Section>
       <SectionHeader dangerouslySetInnerHTML={{__html: title}} />
-      {items && items.length > 0 && (
-        <SectionList>
-          {items.map(item => renderItem(item))}
-        </SectionList>
-      )}
+      <SectionList>
+        {loading && renderPlaceholders()}
+        {!loading && items && items.length > 0 && items.map(item => renderItem(item))}
+      </SectionList>
     </Section>
   );
 };
