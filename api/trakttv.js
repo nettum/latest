@@ -5,7 +5,7 @@ const formatResponse = async (items, type) => {
   let formattedResponse = [];
   if (type === 'movies') {
     for (let item of items) {
-      let poster = '';
+      let poster = '/missing-image.png';
       if (item.movie.ids.tmdb) {
         const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${item.movie.ids.tmdb}?api_key=${process.env.TMDB_API_KEY}`);
         const tmdbJson = await tmdbResponse.json();
@@ -25,7 +25,7 @@ const formatResponse = async (items, type) => {
 
   if (type === 'episodes') {
     for (let item of items) {
-      let poster = '';
+      let poster = '/missing-image.png';
       if (item.show.ids.tmdb) {
         const tmdbResponse = await fetch(`https://api.themoviedb.org/3/tv/${item.show.ids.tmdb}?api_key=${process.env.TMDB_API_KEY}`);
         const tmdbJson = await tmdbResponse.json();
