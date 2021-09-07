@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
     return res.status(200).json(json);
   }
 
-  const response = await fetch(`https://api.trakt.tv/users/internettum/history/${type}/`, {
+  const response = await fetch(`https://api.trakt.tv/users/internettum/history/${type}/?page=1&limit=4`, {
     headers: {
       'Content-Type': 'application/json',
       'trakt-api-version': 2,
@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
   });
 
   const json = await response.json();
-  const returnedJson = await formatResponse(json.slice(0, 4), type);
+  const returnedJson = await formatResponse(json, type);
 
   res.setHeader('Cache-Control', 's-maxage=3600');
   return res.status(200).json(returnedJson);
