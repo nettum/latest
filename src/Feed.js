@@ -117,36 +117,17 @@ const Feed = (props) => {
   }, [type]);
 
   const renderItem = (item) => {
-    if (type === 'discogs') {
-      return (<SectionItem key={item.basic_information.id}>
-        <a href={`https://www.discogs.com/release/${item.basic_information.id}`}>
-          <figure className={type}>
-            <img src={item.basic_information.cover_image} alt={`${item.basic_information.title} album cover`} />
-          </figure>
-          <div>
-            <h4>{item.basic_information.title}</h4>
-            <h5>{item.basic_information.artists[0].name}</h5>
-          </div>
-
-        </a>
-      </SectionItem>);
-    }
-
-    if (type === 'episodes' || type === 'movies') {
-      return (<SectionItem key={item.id}>
-        <a href={item.link}>
+    return (<SectionItem key={item.id}>
+      <a href={item.link}>
         <figure className={type}>
-            <img src={item.poster} alt={`${item.title} poster`} />
-          </figure>
-          <div>
-            <h4>{item.title}</h4>
-            <h5>{item.subtitle}</h5>
-          </div>
-        </a>
-      </SectionItem>);
-    }
-
-    return null;
+          <img src={item.poster} alt={`${item.title} poster`} />
+        </figure>
+        <div>
+          <h4>{item.title}</h4>
+          <h5>{item.subtitle}</h5>
+        </div>
+      </a>
+    </SectionItem>);
   };
 
   const renderPlaceholders = () => {
