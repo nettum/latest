@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const formatResponse = async (items) => {
+const formatResponse = async items => {
   let formattedResponse = [];
 
   for (let item of items) {
