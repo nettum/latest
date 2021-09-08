@@ -79,7 +79,13 @@ const App = () => {
         <Feed type="spotify" title="The latest <a href='https://open.spotify.com/user/wwmd?si=1559d1d1c9f14270' target='_blank' rel='noopener noreferrer'>music</a> I've streamed" />
       </Main>
       <Footer>
-        <p>All information is gathered through the following APIs:<br /> <a href="https://www.discogs.com/developers" target="_blank" rel="noopener noreferrer">Discogs</a>, <a href="https://trakt.docs.apiary.io/" target="_blank" rel="noopener noreferrer">Trakt</a>, <a href="https://developers.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a></p>
+        <p>
+          All information is gathered through the following APIs:<br />&nbsp;
+          <a href="https://www.discogs.com/developers" target="_blank" rel="noopener noreferrer">Discogs</a>,&nbsp;
+          <a href="https://trakt.docs.apiary.io/" target="_blank" rel="noopener noreferrer">Trakt</a>,&nbsp;
+          <a href="https://developers.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>,&nbsp;
+          <a href="https://developer.spotify.com/documentation/web-api/" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </p>
         <p>Hosting by <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a></p>
       </Footer>
     </Wrapper>
