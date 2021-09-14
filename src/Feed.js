@@ -40,6 +40,9 @@ const SectionList = styled.ul`
   figure.movies, figure.episodes {
     padding-top: 150%;
   }
+  figure.gigs {
+    padding-top: 75%;
+  }
   img {
     top: 0;
     right: 0;
