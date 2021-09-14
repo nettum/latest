@@ -16,7 +16,7 @@ const getAccessToken = async () => {
     body: body.toString(),
   });
 
-  const json = response.json();
+  const json = await response.json();
   return json;
 };
 
