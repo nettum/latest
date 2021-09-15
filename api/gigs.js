@@ -33,7 +33,7 @@ const formatResponse = async items => {
 
 module.exports = async (req, res) => {
   const query = `
-    *[_type == "gig"]|order(concertDate desc) {
+    *[_type == "gig" && concertDate <= now()]|order(concertDate desc) {
     artist,
     "slug": slug.current,
     concertImage,
