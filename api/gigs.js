@@ -19,10 +19,11 @@ const formatResponse = async items => {
     if (item.concertImage) {
       poster = builder.image(item.concertImage).width(400).url();
     }
+    const subtitle = item.event ? `${item.event}, ${item.venue}` : item.venue;
     formattedResponse.push({
       id: item.slug,
       title: item.artist,
-      subtitle: item.venue,
+      subtitle: subtitle,
       link: '#',
       poster: poster,
     });
@@ -38,7 +39,8 @@ module.exports = async (req, res) => {
     "slug": slug.current,
     concertImage,
     concertDate,
-    "venue": venue->name
+    "venue": venue->name,
+    "event": event->name
     }[0...4]
   `;
 
