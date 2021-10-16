@@ -22,7 +22,7 @@ const formatResponse = async items => {
     const subtitle = item.event ? `${item.event}, ${item.venue}` : item.venue;
     formattedResponse.push({
       id: item.slug,
-      title: item.artist,
+      title: item.title,
       subtitle: subtitle,
       link: '#',
       poster: poster,
@@ -35,7 +35,7 @@ const formatResponse = async items => {
 module.exports = async (req, res) => {
   const query = `
     *[_type == "gig" && concertDate <= now()]|order(concertDate desc) {
-    artist,
+    title,
     "slug": slug.current,
     concertImage,
     concertDate,
