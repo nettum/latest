@@ -8,10 +8,11 @@ const formatResponse = async items => {
     if (item.basic_information.cover_image) {
       poster = item.basic_information.cover_image;
     }
+    const subtitle = item.basic_information.artists[0].name.replace(/\(\d+\)$/, '');
     formattedResponse.push({
       id: item.basic_information.id,
       title: item.basic_information.title,
-      subtitle: item.basic_information.artists[0].name,
+      subtitle: subtitle,
       link: `https://www.discogs.com/release/${item.basic_information.id}`,
       poster: poster
     });
