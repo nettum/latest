@@ -34,7 +34,7 @@ const SectionList = styled.ul`
     overflow: hidden;
 
   }
-  figure.discogs, figure.spotify {
+  figure {
     padding-top: 100%;
   }
   figure.movies, figure.episodes {

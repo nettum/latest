@@ -78,6 +78,7 @@ const App = () => {
         <Feed type="movies" title="The latest <a href='https://trakt.tv/users/internettum/history/movies' target='_blank' rel='noopener noreferrer'>movies</a> I watched" />
         <Feed type="spotify" title="The latest <a href='https://open.spotify.com/user/wwmd?si=1559d1d1c9f14270' target='_blank' rel='noopener noreferrer'>music</a> I've streamed" />
         <Feed type="gigs" title="The latest <a href='https://gigs.internettum.no/' target='_blank' rel='noopener noreferrer'>gigs</a> I've headbanged to" />
+        <Feed type="untappd" title="The latest <a href='https://untappd.com/user/internettum' target='_blank' rel='noopener noreferrer'>beers</a> I've tasted" />
       </Main>
       <Footer>
         <p>
