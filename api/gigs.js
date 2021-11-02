@@ -24,7 +24,7 @@ const formatResponse = async items => {
       id: item.slug,
       title: item.title,
       subtitle: subtitle,
-      link: '#',
+      link: 'https://gigs.internettum.no/',
       poster: poster,
     });
   }
