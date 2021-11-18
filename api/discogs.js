@@ -5,7 +5,8 @@ const formatResponse = async items => {
 
   for (let item of items) {
     let poster = '/missing-image.png';
-    if (item.basic_information.cover_image) {
+    const image = item.basic_information.cover_image;
+    if (image && !image.includes('spacer.gif')) {
       poster = item.basic_information.cover_image;
     }
     const subtitle = item.basic_information.artists[0].name.replace(/\(\d+\)$/, '');
