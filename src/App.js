@@ -79,7 +79,7 @@ const App = () => {
         <Feed type="spotify" title="The latest <a href='https://open.spotify.com/user/wwmd?si=1559d1d1c9f14270' target='_blank' rel='noopener noreferrer'>music</a> I've streamed" />
         <Feed type="gigs" title="The latest <a href='https://gigs.internettum.no/' target='_blank' rel='noopener noreferrer'>gigs</a> I've headbanged to" />
         <Feed type="untappd" title="The latest <a href='https://untappd.com/user/internettum' target='_blank' rel='noopener noreferrer'>beers</a> I've tasted" />
-        <Feed type="instagram" title="My latest <a href='https://www.instagram.com/internettum/' target='_blank' rel='noopener noreferrer'>Instagram</a> posts" />
+        {/* <Feed type="instagram" title="My latest <a href='https://www.instagram.com/internettum/' target='_blank' rel='noopener noreferrer'>Instagram</a> posts" /> */}
       </Main>
       <Footer>
         <p>
@@ -90,7 +90,7 @@ const App = () => {
           <a href="https://developer.spotify.com/documentation/web-api/" target="_blank" rel="noopener noreferrer">Spotify</a>,&nbsp;
           <a href="https://www.sanity.io/docs/datastore" target="_blank" rel="noopener noreferrer">Sanity</a>,&nbsp;
           <a href="https://untappd.com/api/docs" target="_blank" rel="noopener noreferrer">Untappd</a>,&nbsp;
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          {/* <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a> */}
         </p>
         <p>Hosting by <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a></p>
       </Footer>
