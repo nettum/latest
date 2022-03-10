@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
     return res.status(200).json(json);
   }
 
-  const response = await fetch(`https://api.discogs.com/users/wwmd/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`);
+  const response = await fetch(`https://api.discogs.com/users/internettum/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`);
   const json = await response.json();
   const returnedJson = await formatResponse(json.releases);
 

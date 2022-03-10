@@ -73,7 +73,7 @@ const App = () => {
         <SubHeader>Here's what I've been up to lately</SubHeader>
       </Header>
       <Main>
-        <Feed type="discogs" title="Check out the latest <a href='https://www.discogs.com/user/wwmd/collection?limit=250&sort=added&header=1&sort_order=desc&layout=big' target='_blank' rel='noopener noreferrer'>music</a> I bought" />
+        <Feed type="discogs" title="Check out the latest <a href='https://www.discogs.com/user/internettum/collection?limit=250&sort=added&header=1&sort_order=desc&layout=big' target='_blank' rel='noopener noreferrer'>music</a> I bought" />
         <Feed type="episodes" title="The latest <a href='https://trakt.tv/users/internettum/history/episodes' target='_blank' rel='noopener noreferrer'>tv-shows</a> I binged" />
         <Feed type="movies" title="The latest <a href='https://trakt.tv/users/internettum/history/movies' target='_blank' rel='noopener noreferrer'>movies</a> I watched" />
         <Feed type="spotify" title="The latest <a href='https://open.spotify.com/user/wwmd?si=1559d1d1c9f14270' target='_blank' rel='noopener noreferrer'>music</a> I've streamed" />
