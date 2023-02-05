@@ -132,8 +132,8 @@ const Feed = (props) => {
           <img src={item.poster} alt={`${item.title} poster`} />
         </figure>
         <div>
-          <h4>{item.title}</h4>
-          <h5>{item.subtitle}</h5>
+          <h4 title={item.title}>{item.title}</h4>
+          <h5 title={item.subtitle}>{item.subtitle}</h5>
         </div>
       </a>
     </SectionItem>);
