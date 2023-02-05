@@ -65,6 +65,12 @@ const SectionList = styled.ul`
 `;
 
 const SectionItem = styled.li`
+  overflow: hidden;
+  h4, h5 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   h4 {
     color: #d3d3d3;
   }
