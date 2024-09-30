@@ -1,0 +1,22 @@
+meta {
+  name: Trakt.tv movies
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api.trakt.tv/users/{{TRAKT_USERNAME}}/history/movies/?page=1&limit=4
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 4
+}
+
+headers {
+  Content-Type: application/json
+  trakt-api-version: 2
+  trakt-api-key: {{TRAKT_CLIENT_ID}}
+}

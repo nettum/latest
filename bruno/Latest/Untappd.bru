@@ -1,0 +1,17 @@
+meta {
+  name: Untappd
+  type: http
+  seq: 6
+}
+
+get {
+  url: https://api.untappd.com/v4/user/checkins/{{UNTAPPD_USERNAME}}?client_id={{UNTAPPD_CLIENT_ID}}&client_secret={{UNTAPPD_CLIENT_SECRET}}&limit=4
+  body: none
+  auth: none
+}
+
+params:query {
+  client_id: {{UNTAPPD_CLIENT_ID}}
+  client_secret: {{UNTAPPD_CLIENT_SECRET}}
+  limit: 4
+}
