@@ -2,6 +2,8 @@ import { FeedItemType } from "@/app/types/feed";
 import { SpotifyTokenResponseType, SpotifyResponseType } from "@/app/types/spotify";
 
 export const dynamic = "force-dynamic";
+let accessToken: SpotifyTokenResponseType | null = null;
+let expireTS = 0;
 
 const getAccessToken = async () => {
   const baseAuthToken = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString("base64");
@@ -21,11 +23,16 @@ const getAccessToken = async () => {
   });
 
   const json: SpotifyTokenResponseType = await response.json();
+  accessToken = json;
+  expireTS = Date.now() + json.expires_in * 1000;
   return json;
 };
 
 export async function GET() {
-  const accessToken = await getAccessToken();
+  if (!accessToken || Date.now() >= expireTS) {
+    accessToken = await getAccessToken();
+    expireTS = Date.now() + accessToken.expires_in * 1000;
+  }
   const data = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
     headers: {
       Authorization: `Bearer ${accessToken.access_token}`,
