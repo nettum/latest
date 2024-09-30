@@ -1,7 +1,15 @@
+"use server";
+
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { FeedItemType } from "@/app/types/feed";
 import { ConcertsResponseType } from "@/app/types/concerts";
+
+const cacheTTL = 3600;
+let cache = {
+  expireTS: 0,
+  data: [] as FeedItemType[],
+};
 
 const client = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
@@ -24,7 +32,11 @@ const query = `
   }[0...4]
 `;
 
-export async function GET() {
+export async function getData() {
+  if (cache.data.length > 0 && Date.now() < cache.expireTS) {
+    return cache.data;
+  }
+
   const data: ConcertsResponseType = await client.fetch(query);
   const response: FeedItemType[] = data.map((item) => {
     let poster = "/missing-image.png";
@@ -39,7 +51,11 @@ export async function GET() {
       poster: poster,
     };
   });
-  const httpResponse = Response.json(response);
-  httpResponse.headers.set("Cache-Control", "public, s-max-age=3600");
-  return httpResponse;
+
+  cache = {
+    expireTS: Date.now() + cacheTTL * 1000,
+    data: response,
+  };
+
+  return response;
 }

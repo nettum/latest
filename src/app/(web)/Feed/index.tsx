@@ -7,15 +7,20 @@ type Props = {
   title: string;
 };
 
+const getData = async (type: FeedType): Promise<FeedItemType[]> => {
+  "use server";
+  const feedImporter = await import(`@/app/(actions)/${type}`);
+  return feedImporter.getData();
+};
+
 export default async function Feed({ type, title }: Props) {
-  const data = await fetch(`${process.env.VERCEL_ENV === "development" ? "http://" : "https://"}${process.env.VERCEL_PROJECT_PRODUCTION_URL}/${type}`);
-  const items: FeedItemType[] = await data.json();
+  const data = await getData(type);
 
   return (
     <section className={styles.feed}>
       <h3 dangerouslySetInnerHTML={{ __html: title }}></h3>
       <ul>
-        {items.map((item) => (
+        {data.map((item) => (
           <FeedItem key={item.id} type={type} {...item} />
         ))}
       </ul>

@@ -1,8 +1,22 @@
+"use server";
+
 import { FeedItemType } from "@/app/types/feed";
 import { DiscogsResponseType } from "@/app/types/discogs";
 
-export async function GET() {
-  const data = await fetch(`https://api.discogs.com/users/${process.env.DISCOGS_USERNAME}/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`);
+const cacheTTL = 3600;
+let cache = {
+  expireTS: 0,
+  data: [] as FeedItemType[],
+};
+
+export async function getData() {
+  if (cache.data.length > 0 && Date.now() < cache.expireTS) {
+    return cache.data;
+  }
+
+  const data = await fetch(`https://api.discogs.com/users/${process.env.DISCOGS_USERNAME}/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`, {
+    cache: "no-store",
+  });
   const json: DiscogsResponseType = await data.json();
   const response: FeedItemType[] = json.releases.map((item) => {
     let poster = "/missing-image.png";
@@ -18,7 +32,11 @@ export async function GET() {
       poster: poster,
     };
   });
-  const httpResponse = Response.json(response);
-  httpResponse.headers.set("Cache-Control", "public, s-max-age=3600");
-  return httpResponse;
+
+  cache = {
+    expireTS: Date.now() + cacheTTL * 1000,
+    data: response,
+  };
+
+  return response;
 }

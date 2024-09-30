@@ -1,8 +1,22 @@
+"use server";
+
 import { UntappdResponseType } from "@/app/types/untappd";
 import { FeedItemType } from "@/app/types/feed";
 
-export async function GET() {
-  const data = await fetch(`https://api.untappd.com/v4/user/checkins/${process.env.UNTAPPD_USERNAME}?client_id=${process.env.UNTAPPD_CLIENT_ID}&client_secret=${process.env.UNTAPPD_CLIENT_SECRET}&limit=4`);
+const cacheTTL = 3600;
+let cache = {
+  expireTS: 0,
+  data: [] as FeedItemType[],
+};
+
+export async function getData() {
+  if (cache.data.length > 0 && Date.now() < cache.expireTS) {
+    return cache.data;
+  }
+
+  const data = await fetch(`https://api.untappd.com/v4/user/checkins/${process.env.UNTAPPD_USERNAME}?client_id=${process.env.UNTAPPD_CLIENT_ID}&client_secret=${process.env.UNTAPPD_CLIENT_SECRET}&limit=4`, {
+    cache: "no-store",
+  });
   const json: UntappdResponseType = await data.json();
 
   const response: FeedItemType[] = json.response.checkins.items.map((item) => {
@@ -19,7 +33,10 @@ export async function GET() {
     };
   });
 
-  const httpResponse = Response.json(response);
-  httpResponse.headers.set("Cache-Control", "public, s-max-age=3600");
-  return httpResponse;
+  cache = {
+    expireTS: Date.now() + cacheTTL * 1000,
+    data: response,
+  };
+
+  return response;
 }

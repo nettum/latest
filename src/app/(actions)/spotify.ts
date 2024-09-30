@@ -1,9 +1,16 @@
+"use server";
+
 import { FeedItemType } from "@/app/types/feed";
 import { SpotifyTokenResponseType, SpotifyResponseType } from "@/app/types/spotify";
 
-export const dynamic = "force-dynamic";
 let accessToken: SpotifyTokenResponseType | null = null;
 let expireTS = 0;
+
+const cacheTTL = 300;
+let cache = {
+  expireTS: 0,
+  data: [] as FeedItemType[],
+};
 
 const getAccessToken = async () => {
   const baseAuthToken = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString("base64");
@@ -28,11 +35,16 @@ const getAccessToken = async () => {
   return json;
 };
 
-export async function GET() {
+export async function getData() {
+  if (cache.data.length > 0 && Date.now() < cache.expireTS) {
+    return cache.data;
+  }
+
   if (!accessToken || Date.now() >= expireTS) {
     accessToken = await getAccessToken();
     expireTS = Date.now() + accessToken.expires_in * 1000;
   }
+
   const data = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
     headers: {
       Authorization: `Bearer ${accessToken.access_token}`,
@@ -53,7 +65,11 @@ export async function GET() {
       poster: poster,
     };
   });
-  const httpResponse = Response.json(response);
-  httpResponse.headers.set("CDN-Cache-Control", "max-age=300");
-  return httpResponse;
+
+  cache = {
+    expireTS: Date.now() + cacheTTL * 1000,
+    data: response,
+  };
+
+  return response;
 }
