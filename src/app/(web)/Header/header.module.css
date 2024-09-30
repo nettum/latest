@@ -1,0 +1,20 @@
+.header {
+  & h1 {
+    font-size: 2em;
+    line-height: 1.5em;
+    @media (min-width: 768px) {
+      font-size: 4em;
+    }
+    & span {
+      font-family: var(--font-pacifico);
+      font-weight: 400;
+      color: #61a5c2;
+    }
+  }
+  & h2 {
+    font-size: 1.5em;
+    @media (min-width: 768px) {
+      font-size: 2em;
+    }
+  }
+}
