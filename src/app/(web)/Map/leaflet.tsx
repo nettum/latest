@@ -13,7 +13,7 @@ export default function Leaflet({ poster }: { poster: string }) {
   const center = L.LineUtil.polylineCenter(coordinates, L.CRS.Simple);
 
   return (
-    <MapContainer center={[center.lng, center.lat]} bounds={bounds} className={styles.map}>
+    <MapContainer center={[center.lng, center.lat]} bounds={bounds} dragging={false} scrollWheelZoom={false} boxZoom={false} className={styles.map}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Polyline pathOptions={{ color: "red" }} positions={coordinates} />
     </MapContainer>

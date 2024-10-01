@@ -1,9 +1,11 @@
+import { Suspense } from "react";
+
 import Header from "@/app/(web)/Header";
 import Feed from "@/app/(web)/Feed";
 import Placeholder from "@/app/(web)/Placeholder";
 import { FeedType } from "@/app/types/feed";
+import Footer from "@/app/(web)/Footer";
 import styles from "./page.module.css";
-import { Suspense } from "react";
 
 const feeds: { type: FeedType; title: string }[] = [
   { type: "discogs", title: `&#127926; Check out the latest <a href='https://www.discogs.com/user/${process.env.DISCOGS_USERNAME}/collection?limit=250&sort=added&header=1&sort_order=desc&layout=big' target='_blank' rel='noopener noreferrer'>music</a> I bought` },
@@ -26,6 +28,7 @@ export default function Home() {
           </Suspense>
         ))}
       </main>
+      <Footer />
     </div>
   );
 }
