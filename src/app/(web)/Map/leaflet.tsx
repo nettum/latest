@@ -8,9 +8,6 @@ import L from "leaflet";
 import polyline from "@mapbox/polyline";
 
 export default function Leaflet({ poster }: { poster: string }) {
-  if (typeof window === "undefined") {
-    return null;
-  }
   const coordinates = polyline.decode(poster);
   const bounds = L.latLngBounds(coordinates);
   const center = L.LineUtil.polylineCenter(coordinates, L.CRS.Simple);
