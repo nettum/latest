@@ -45,31 +45,42 @@ export async function getData() {
     expireTS = Date.now() + accessToken.expires_in * 1000;
   }
 
-  const data = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
-    headers: {
-      Authorization: `Bearer ${accessToken.access_token}`,
-    },
-    cache: "no-store",
-  });
-  const json: SpotifyResponseType = await data.json();
-  const response: FeedItemType[] = json.items.slice(0, 4).map((item) => {
-    let poster = "/missing-image.png";
-    if (item.track.album.images[0]) {
-      poster = item.track.album.images[0].url;
+  try {
+    const data = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
+      headers: {
+        Authorization: `Bearer ${accessToken.access_token}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!data.ok) {
+      console.error(`Error fetching Spotify data (http ${data.status}):`, data.statusText);
+      return [];
     }
-    return {
-      id: item.track.id,
-      title: item.track.name,
-      subtitle: item.track.artists[0].name,
-      link: item.track.external_urls.spotify,
-      poster: poster,
+
+    const json: SpotifyResponseType = await data.json();
+    const response: FeedItemType[] = json.items.slice(0, 4).map((item) => {
+      let poster = "/missing-image.png";
+      if (item.track.album.images[0]) {
+        poster = item.track.album.images[0].url;
+      }
+      return {
+        id: item.track.id,
+        title: item.track.name,
+        subtitle: item.track.artists[0].name,
+        link: item.track.external_urls.spotify,
+        poster: poster,
+      };
+    });
+
+    cache = {
+      expireTS: Date.now() + cacheTTL * 1000,
+      data: response,
     };
-  });
 
-  cache = {
-    expireTS: Date.now() + cacheTTL * 1000,
-    data: response,
-  };
-
-  return response;
+    return response;
+  } catch (error) {
+    console.error("Error fetching Spotify data:", error);
+    return [];
+  }
 }

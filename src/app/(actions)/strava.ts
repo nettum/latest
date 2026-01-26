@@ -47,38 +47,49 @@ export async function getData() {
     expireTS = Date.now() + accessToken.expires_in * 1000;
   }
 
-  const data = await fetch("https://www.strava.com/api/v3/athlete/activities?per_page=4", {
-    headers: {
-      Authorization: `Bearer ${accessToken.access_token}`,
-    },
-    cache: "no-store",
-  });
-  const json: StravaResponseType = await data.json();
+  try {
+    const data = await fetch("https://www.strava.com/api/v3/athlete/activities?per_page=4", {
+      headers: {
+        Authorization: `Bearer ${accessToken.access_token}`,
+      },
+      cache: "no-store",
+    });
 
-  const response: FeedItemType[] = json.map((item) => {
-    let poster = "/missing-image.png";
-    if (item.map.summary_polyline) {
-      poster = item.map.summary_polyline as string;
+    if (!data.ok) {
+      console.error(`Error fetching Strava data (http ${data.status}):`, data.statusText);
+      return [];
     }
-    const types = {
-      Ride: "🚴",
-      Run: "🏃‍♂️",
-      Walk: "🚶‍♂️",
-    } as Record<SportType, string>;
 
-    return {
-      id: item.id,
-      title: `${types[item.sport_type] || "💦"} ${item.name}`,
-      subtitle: `${(item.distance / 1000).toFixed(2)} km, ${secondsToHumanReadable(item.moving_time)}`,
-      link: `https://www.strava.com/activities/${item.id}`,
-      poster: poster,
+    const json: StravaResponseType = await data.json();
+
+    const response: FeedItemType[] = json.map((item) => {
+      let poster = "/missing-image.png";
+      if (item.map.summary_polyline) {
+        poster = item.map.summary_polyline as string;
+      }
+      const types = {
+        Ride: "🚴",
+        Run: "🏃‍♂️",
+        Walk: "🚶‍♂️",
+      } as Record<SportType, string>;
+
+      return {
+        id: item.id,
+        title: `${types[item.sport_type] || "💦"} ${item.name}`,
+        subtitle: `${(item.distance / 1000).toFixed(2)} km, ${secondsToHumanReadable(item.moving_time)}`,
+        link: `https://www.strava.com/activities/${item.id}`,
+        poster: poster,
+      };
+    });
+
+    cache = {
+      expireTS: Date.now() + cacheTTL * 1000,
+      data: response,
     };
-  });
 
-  cache = {
-    expireTS: Date.now() + cacheTTL * 1000,
-    data: response,
-  };
-
-  return response;
+    return response;
+  } catch (error) {
+    console.error("Error fetching Strava data:", error);
+    return [];
+  }
 }

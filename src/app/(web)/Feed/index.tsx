@@ -16,7 +16,7 @@ const getData = async (type: FeedType): Promise<FeedItemType[]> => {
 export default async function Feed({ type, title }: Props) {
   const data = await getData(type);
 
-  return (
+  return data && data.length > 0 ? (
     <section className={styles.feed}>
       <h3 dangerouslySetInnerHTML={{ __html: title }}></h3>
       <ul>
@@ -25,5 +25,5 @@ export default async function Feed({ type, title }: Props) {
         ))}
       </ul>
     </section>
-  );
+  ) : null;
 }

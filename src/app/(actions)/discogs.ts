@@ -14,29 +14,40 @@ export async function getData() {
     return cache.data;
   }
 
-  const data = await fetch(`https://api.discogs.com/users/${process.env.DISCOGS_USERNAME}/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`, {
-    cache: "no-store",
-  });
-  const json: DiscogsResponseType = await data.json();
-  const response: FeedItemType[] = json.releases.map((item) => {
-    let poster = "/missing-image.png";
-    const image = item.basic_information.cover_image;
-    if (image && !image.includes("spacer.gif")) {
-      poster = item.basic_information.cover_image;
+  try {
+    const data = await fetch(`https://api.discogs.com/users/${process.env.DISCOGS_USERNAME}/collection/folders/1/releases?per_page=4&sort=added&sort_order=desc&token=${process.env.DISCOGS_TOKEN}`, {
+      cache: "no-store",
+    });
+
+    if (!data.ok) {
+      console.error(`Error fetching Discogs data (http ${data.status}):`, data.statusText);
+      return [];
     }
-    return {
-      id: item.basic_information.id,
-      title: item.basic_information.title,
-      subtitle: item.basic_information.artists[0].name.replace(/\(\d+\)$/, ""),
-      link: `https://www.discogs.com/release/${item.basic_information.id}`,
-      poster: poster,
+
+    const json: DiscogsResponseType = await data.json();
+    const response: FeedItemType[] = json.releases.map((item) => {
+      let poster = "/missing-image.png";
+      const image = item.basic_information.cover_image;
+      if (image && !image.includes("spacer.gif")) {
+        poster = item.basic_information.cover_image;
+      }
+      return {
+        id: item.basic_information.id,
+        title: item.basic_information.title,
+        subtitle: item.basic_information.artists[0].name.replace(/\(\d+\)$/, ""),
+        link: `https://www.discogs.com/release/${item.basic_information.id}`,
+        poster: poster,
+      };
+    });
+
+    cache = {
+      expireTS: Date.now() + cacheTTL * 1000,
+      data: response,
     };
-  });
 
-  cache = {
-    expireTS: Date.now() + cacheTTL * 1000,
-    data: response,
-  };
-
-  return response;
+    return response;
+  } catch (error) {
+    console.error("Error fetching Discogs data:", error);
+    return [];
+  }
 }
