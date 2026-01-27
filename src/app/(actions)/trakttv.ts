@@ -19,6 +19,7 @@ export async function getData() {
     const data = await fetch(`https://api.trakt.tv/users/${process.env.TRAKT_USERNAME}/history/episodes/?page=1&limit=4`, {
       headers: {
         "Content-Type": "application/json",
+        "User-Agent": `${process.env.TRAKT_USERNAME}Latest/1.0`,
         "trakt-api-version": "2",
         "trakt-api-key": process.env.TRAKT_CLIENT_ID!,
       },
