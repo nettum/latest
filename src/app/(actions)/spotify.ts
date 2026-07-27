@@ -29,10 +29,14 @@ const getAccessToken = async () => {
     cache: "no-store",
   });
 
-  const json: SpotifyTokenResponseType = await response.json();
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(`Error fetching Spotify access token (http ${response.status}): ${json.error_description ?? json.error}`);
+  }
+
   accessToken = json;
   expireTS = Date.now() + json.expires_in * 1000;
-  return json;
+  return json as SpotifyTokenResponseType;
 };
 
 export async function getData() {
@@ -40,12 +44,11 @@ export async function getData() {
     return cache.data;
   }
 
-  if (!accessToken || Date.now() >= expireTS) {
-    accessToken = await getAccessToken();
-    expireTS = Date.now() + accessToken.expires_in * 1000;
-  }
-
   try {
+    if (!accessToken || Date.now() >= expireTS) {
+      accessToken = await getAccessToken();
+    }
+
     const data = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
       headers: {
         Authorization: `Bearer ${accessToken.access_token}`,
